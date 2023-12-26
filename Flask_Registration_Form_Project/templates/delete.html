@@ -1,0 +1,13 @@
+{% extends "base.html"%}
+{% block title %}Registration Site{% endblock %}
+{% block content %}
+<div class="position-absolute bottom-30 start-50 translate-middle m-5 text-success">
+    <h1>Do you want to delete user: {{user.name}}</h1>
+    <form action='' method="post">
+        <p class="text-success">Click YES to confirm</p>
+        <input type = "submit" value="YES" class="text-success-emphasis">
+        <a href='/user_detail' class=" text-success">Cancel</a>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html"%}
+{% block title %}Registration Site{% endblock %}
+{% block content %}
+<div class="position-absolute bottom-30 start-50 translate-middle m-5 text-success">
+    <h1>Users details</h1>
+</div>
+{% for user in users %}
+    <div class="card" style="width: 18rem;">
+            <div class="card-body">
+            <h5 class="card-title text-success-emphasis">ID: {{user.id}} </h5>
+            <h6 class="card-subtitle mb-2 text-success">Name: {{user.name}}</h6>
+            <p class="card-text text-success-emphasis">Email: {{user.email}}</p>
+            <p class="card-text text-success-emphasis">Phone: {{user.phone_no}}</p>
+            <a href="/update/{{user.id}}" class="card-link text-success">update</a>
+            <a href="/delete/{{user.id}}" class="card-link text-success">delete</a>
+            </div>
+    </div>
+{% endfor %}
+{% endblock %}
