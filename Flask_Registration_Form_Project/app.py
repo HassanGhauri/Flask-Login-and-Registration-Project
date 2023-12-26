@@ -1,9 +1,11 @@
 import os
-from flask import Flask,render_template,redirect,url_for,request
+from flask import Flask,render_template,redirect,url_for,request,flash
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 load_dotenv("./.env")
+
 app = Flask(__name__)
+app.secret_key = "hello"
 URL = os.environ['DB_URL']
 
 app.config['SQLALCHEMY_DATABASE_URI'] = URL
@@ -33,9 +35,24 @@ class User(db.Model):
 def home():
     return render_template("home.html")
 
-@app.route("/login")
+@app.route("/loggedin")
+def loggedin():
+    return render_template("loggedin.html")
+
+@app.route("/login",methods=["GET","POST"])
 def login():
+    if request.method == "POST":
+        user_email = request.form["email"]
+        user_pswrd = request.form["pswrd"]
+        users = User.query.all()
+        for user in users:
+            if user_email in user.email and user_pswrd in user.password:
+                return redirect(url_for("loggedin"))
+            else:
+                flash("Incorrect User details")
+
     return render_template("login.html")
+
 
 @app.route("/register" , methods=["GET", "POST"])
 def register():
